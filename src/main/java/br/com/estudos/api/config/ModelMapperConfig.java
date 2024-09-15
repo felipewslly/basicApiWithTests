@@ -10,7 +10,7 @@ public class ModelMapperConfig {
 
 
     @Bean
-    public ModelMapper modelMapper() {
+    public ModelMapper modelMapper() { //configuração padrao do ModelMapper
         return new ModelMapper();
     }
 }

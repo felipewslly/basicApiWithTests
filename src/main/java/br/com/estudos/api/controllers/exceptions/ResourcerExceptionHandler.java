@@ -1,6 +1,7 @@
 package br.com.estudos.api.controllers.exceptions;
 
 
+import br.com.estudos.api.services.exceptions.DataIntegrationViolationException;
 import br.com.estudos.api.services.exceptions.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.catalina.User;
@@ -21,5 +22,14 @@ public class ResourcerExceptionHandler{
                     userNotFoundException.getMessage(),
                     request.getRequestURI());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
+     }
+
+     @ExceptionHandler(DataIntegrationViolationException.class)
+     public ResponseEntity<StandardError> dataIntegrationViolation(DataIntegrationViolationException dataIntegrationViolationException, HttpServletRequest request){
+            StandardError dataIntegrationException = new StandardError(LocalDateTime.now(),
+                    HttpStatus.BAD_REQUEST.value(),
+                    dataIntegrationViolationException.getMessage(),
+                    request.getRequestURI());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(dataIntegrationException);
      }
 }

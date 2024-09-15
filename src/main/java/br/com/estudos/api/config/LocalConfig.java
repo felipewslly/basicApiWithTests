@@ -20,8 +20,8 @@ public class LocalConfig {
 
     @PostConstruct
     public void startDb(){
-        Users userNews = new Users(null, "felipe", "felippe@gmai.com", "1234");
-        Users userNews1 = new Users(null, "fernando", "fer@gmai.com", "1234");
+        Users userNews = new Users(1, "felipe", "felippe@gmai.com", "1234");
+        Users userNews1 = new Users(2, "fernando", "fer@gmai.com", "1234");
 
             userRepository.saveAll(List.of(userNews, userNews1));
     }
