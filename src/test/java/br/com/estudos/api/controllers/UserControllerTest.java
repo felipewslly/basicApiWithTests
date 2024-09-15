@@ -54,9 +54,6 @@ class UserControllerTest {
         Assertions.assertEquals(ResponseEntity.class, response.getClass());
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
         Assertions.assertNotNull(response.getHeaders().get("Location"));
-
-
-
     }
 
     @Test
@@ -102,11 +99,41 @@ class UserControllerTest {
     }
 
     @Test
-    void updateUser() {
+    void whenUpdateUserThenReturnSucess() {
+        Mockito.when(userService.updateUsers(usersDTO)).thenReturn(users);
+        Mockito.when(modelMapper.map(Mockito.any(), Mockito.any())).thenReturn(usersDTO);
+
+        ResponseEntity<UsersDTO> response = userController.updateUser(ID, usersDTO);
+
+        Assertions.assertNotNull(response);
+        Assertions.assertNotNull(response.getBody());
+
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertEquals(ResponseEntity.class, response.getClass());
+        Assertions.assertEquals(UsersDTO.class, response.getBody().getClass());
+
+        Assertions.assertEquals(ID, response.getBody().getId());
+        Assertions.assertEquals(NAME, response.getBody().getName());
+        Assertions.assertEquals(EMAIL, response.getBody().getEmail());
+        Assertions.assertEquals(PASSWORD, response.getBody().getPassword());
+
+
+
     }
 
     @Test
-    void deleteUser() {
+    void whenDeleteUserThenReturnSucess() {
+        Mockito.doNothing().when(userService).deleteUser(Mockito.anyInt());
+
+        ResponseEntity<UsersDTO> response = userController.deleteUser(ID);
+
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(ResponseEntity.class, response.getClass());
+        Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        Mockito.verify(userService, Mockito.times(1)).deleteUser(Mockito.anyInt());
+
+
     }
 
     private void startUsers() {

@@ -2,12 +2,10 @@ package br.com.estudos.api.controllers;
 
 
 import br.com.estudos.api.domain.dto.UsersDTO;
-import br.com.estudos.api.services.UserService;
 import br.com.estudos.api.services.impl.UserServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
